@@ -1,6 +1,7 @@
 /**
  * Capa de Servicios: Ejecución de Reglas de Negocio
  */
+
 import { BUSINESS_RULES, APPOINTMENT_STATUS } from '../config/businessRules.js';
 import { DbAdapter } from '../database/dbAdapter.js';
 
@@ -56,5 +57,45 @@ export class AppointmentService {
         };
 
         return this.db.insert(newAppointment);
+    }
+
+    /* ==========================================================================
+       MÓDULO DE ADMINISTRACIÓN / STAFF (NUEVO)
+       ========================================================================== */
+
+    // Obtener la lista completa de turnos para el panel del staff
+    getAllAppointments() {
+        return this.db.getAll();
+    }
+
+    // Cambiar estado de un turno (COMPLETADO / NO_SHOW / CANCELADO)
+    updateAppointmentStatus(appointmentId, newStatus) {
+        const appointments = this.db.getAll();
+        const appointment = appointments.find(app => app.id === appointmentId);
+
+        if (!appointment) {
+            throw { status: 404, message: 'El turno solicitado no existe.' };
+        }
+
+        const updated = this.db.update(appointmentId, { status: newStatus });
+
+        // BR-004: Si se marca NO_SHOW, verificar reincidencias del cliente
+        if (newStatus === APPOINTMENT_STATUS.NO_SHOW) {
+            this.checkAndApplyNoShowPenalties(updated.userEmail);
+        }
+
+        return updated;
+    }
+
+    // BR-004: Control de ausencias consecutivas
+    checkAndApplyNoShowPenalties(userEmail) {
+        const appointments = this.db.getAll();
+        const noShowCount = appointments.filter(app => 
+            app.userEmail === userEmail && app.status === APPOINTMENT_STATUS.NO_SHOW
+        ).length;
+
+        if (noShowCount >= BUSINESS_RULES.MAX_NO_SHOWS_ALLOWED) {
+            console.warn(`[BR-004 ALERTA]: El usuario ${userEmail} ha superado el límite de ausencias (${noShowCount}).`);
+        }
     }
 }

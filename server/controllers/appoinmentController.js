@@ -14,7 +14,6 @@ export class AppointmentController {
      */
     handleCreateAppointment(req) {
         try {
-            // 1. Sanitización / Validación básica de payload
             const { userEmail, userName, date, time } = req.body;
 
             if (!userEmail || !userName || !date || !time) {
@@ -24,7 +23,6 @@ export class AppointmentController {
                 };
             }
 
-            // 2. Llamada al servicio de dominio
             const newAppointment = this.appointmentService.createAppointment({
                 userEmail,
                 userName,
@@ -32,7 +30,6 @@ export class AppointmentController {
                 time
             });
 
-            // 3. Respuesta de éxito HTTP 201 Created
             return {
                 status: 201,
                 data: {
@@ -41,10 +38,48 @@ export class AppointmentController {
                 }
             };
         } catch (error) {
-            // 4. Manejo estandarizado de errores (HTTP status codes)
             return {
                 status: error.status || 500,
                 data: { message: error.message || 'Error interno del servidor.' }
+            };
+        }
+    }
+
+    /* ==========================================================================
+       ENDPOINTS DE ADMINISTRACIÓN Y STAFF (NUEVO)
+       ========================================================================== */
+
+    /**
+     * GET /api/admin/appointments
+     */
+    handleGetAllAppointments() {
+        try {
+            const appointments = this.appointmentService.getAllAppointments();
+            return { status: 200, data: { appointments } };
+        } catch (error) {
+            return { status: 500, data: { message: 'Error al recuperar la lista de turnos.' } };
+        }
+    }
+
+    /**
+     * PATCH /api/admin/appointments/status
+     */
+    handleUpdateStatus(req) {
+        try {
+            const { appointmentId, status } = req.body;
+            if (!appointmentId || !status) {
+                return { status: 400, data: { message: 'Faltan parámetros requeridos.' } };
+            }
+
+            const updatedAppointment = this.appointmentService.updateAppointmentStatus(appointmentId, status);
+            return {
+                status: 200,
+                data: { message: 'Estado del turno actualizado correctamente.', appointment: updatedAppointment }
+            };
+        } catch (error) {
+            return {
+                status: error.status || 500,
+                data: { message: error.message || 'Error al actualizar el estado.' }
             };
         }
     }

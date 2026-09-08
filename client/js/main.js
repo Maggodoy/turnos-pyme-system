@@ -3,14 +3,14 @@
  * Punto de Entrada Principal (Application Entry Point / Bootstrapper)
  */
 import { BookingForm } from './components/bookingForm.js';
+import { AdminPanel } from './components/adminPanel.js';
 
-// Esperamos a que la estructura DOM esté lista
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        // Inicializamos el componente principal del formulario
         new BookingForm();
-        console.log('🚀 [App Initialized]: Sistema de Gestión de Turnos listo.');
+        new AdminPanel(); // Inicializa la tabla del staff
+        console.log('🚀 [App Initialized]: Módulos Cliente y Admin cargados.');
     } catch (error) {
-        console.error('❌ [App Error]: Fallo al inicializar la aplicación:', error);
+        console.error('❌ [App Error]:', error);
     }
 });

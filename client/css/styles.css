@@ -253,3 +253,66 @@ body {
     border-top: 1px solid var(--border-color);
     margin-top: auto;
 }
+
+/* Panel de Administración */
+.admin-section {
+    margin-top: 2rem;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.admin-table th, .admin-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.admin-table th {
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* Badges de Estado */
+.badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.badge-pendiente { background-color: #FEF3C7; color: #92400E; }
+.badge-completado { background-color: #D1FAE5; color: #065F46; }
+.badge-no_presentado { background-color: #FEE2E2; color: #991B1B; }
+.badge-cancelado_cliente { background-color: #E5E7EB; color: #374151; }
+
+.actions-cell {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.action-btn {
+    border: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.btn-success { background-color: #D1FAE5; color: #065F46; }
+.btn-warning { background-color: #FEE2E2; color: #991B1B; }
+.btn-danger { background-color: #E5E7EB; color: #374151; }

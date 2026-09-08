@@ -91,7 +91,30 @@
                 <button id="reset-booking-btn" class="btn btn-secondary">Realizar otra reserva</button>
             </div>
         </section>
-
+ <!-- Sección 3: Panel de Administración y Staff (US-004/US-005) -->
+        <section class="card-panel admin-section" id="admin-section">
+            <div class="panel-header">
+                <h2 class="section-title">Panel de Control (Staff)</h2>
+                <button id="refresh-admin-btn" class="btn btn-secondary btn-sm">Actualizar</button>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Fecha/Hora</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-table-body">
+                        <!-- Render dinámico desde adminPanel.js -->
+                    </tbody>
+                </table>
+            </div>
+        </section>       
     </main>
 
     <!-- Footer Footer Técnico -->
