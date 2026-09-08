@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Turnos - PyME</title>
+    <!-- Estilos de la aplicación -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Fuente Google: Inter para estilo minimalista y alta legibilidad -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header / Branding -->
+    <header class="app-header">
+        <div class="header-container">
+            <h1 class="brand-title">Gestión de Turnos</h1>
+            <p class="brand-subtitle">Plataforma de Reservas Online</p>
+        </div>
+    </header>
+
+    <!-- Contenedor Principal (Layout de 2 Columnas o Vista Unificada) -->
+    <main class="main-container">
+
+        <!-- Sección 1: Formulario de Reserva (Vista Cliente - US-001) -->
+        <section class="card-panel" id="booking-section">
+            <h2 class="section-title">Solicitar Cita</h2>
+            <p class="section-description">Seleccione la fecha, horario y complete sus datos para reservar un turno.</p>
+
+            <!-- Alerta de Respuesta API (Éxito / Error) -->
+            <div id="alert-message" class="alert hidden" role="alert"></div>
+
+            <form id="booking-form" class="form-grid" novalidate>
+                <!-- Nombre Completo -->
+                <div class="form-group">
+                    <label for="userName" class="form-label">Nombre y Apellido *</label>
+                    <input type="text" id="userName" name="userName" class="form-input" placeholder="Ej. Ana Gómez" required>
+                    <span class="error-text" id="error-userName"></span>
+                </div>
+
+                <!-- Correo Electrónico -->
+                <div class="form-group">
+                    <label for="userEmail" class="form-label">Correo Electrónico *</label>
+                    <input type="email" id="userEmail" name="userEmail" class="form-input" placeholder="ejemplo@correo.com" required>
+                    <span class="error-text" id="error-userEmail"></span>
+                </div>
+
+                <!-- Fecha -->
+                <div class="form-group">
+                    <label for="bookingDate" class="form-label">Fecha del Turno *</label>
+                    <input type="date" id="bookingDate" name="date" class="form-input" required>
+                    <span class="error-text" id="error-date"></span>
+                </div>
+
+                <!-- Horario -->
+                <div class="form-group">
+                    <label for="bookingTime" class="form-label">Horario Disponible *</label>
+                    <select id="bookingTime" name="time" class="form-input" required>
+                        <option value="">-- Seleccione un horario --</option>
+                        <option value="09:00">09:00 hs</option>
+                        <option value="10:00">10:00 hs</option>
+                        <option value="11:00">11:00 hs</option>
+                        <option value="14:00">14:00 hs</option>
+                        <option value="15:00">15:00 hs</option>
+                        <option value="16:00">16:00 hs</option>
+                    </select>
+                    <span class="error-text" id="error-time"></span>
+                </div>
+
+                <!-- Botón de Envío con estado de carga -->
+                <div class="form-actions">
+                    <button type="submit" id="submit-btn" class="btn btn-primary">
+                        <span class="btn-text">Confirmar Pre-Reserva</span>
+                        <span class="spinner hidden"></span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Sección 2: Confirmación y Notificación Temporal (BR-001) -->
+        <section class="card-panel hidden" id="confirmation-section">
+            <div class="status-box success">
+                <h3>¡Pre-Reserva Creada!</h3>
+                <p id="confirmation-details"></p>
+                <div class="timer-box">
+                    <p>Tiempo restante para confirmar en su email:</p>
+                    <span id="hold-timer" class="timer-display">15:00</span>
+                </div>
+                <button id="reset-booking-btn" class="btn btn-secondary">Realizar otra reserva</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Footer Técnico -->
+    <footer class="app-footer">
+        <p>Caso de Estudio Funcional & Framework JavaScript Modular &copy; 2026</p>
+    </footer>
+
+    <!-- Punto de Entrada JavaScript (Módulo ES6) -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
